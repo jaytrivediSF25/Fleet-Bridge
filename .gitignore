@@ -1,0 +1,11 @@
+__pycache__/
+*.pyc
+.env
+node_modules/
+dist/
+dist-ssr/
+.DS_Store
+*.log
+.vscode/
+.idea/
+*.sw?
