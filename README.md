@@ -196,9 +196,7 @@ Built for the **AI Meets Robotics Hackathon 2025** — addressing the real-world
 ## 👥 Team
 
 **Jay Trivedi** — Full-stack development, AI integration, system architecture
+**Nicholas Lin** - UI/UX, system design, AI prompting, AI analysis, simulation architecture
 
----
 
-## 📄 License
 
-MIT
