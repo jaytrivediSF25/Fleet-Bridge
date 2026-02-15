@@ -89,9 +89,9 @@ class RawRobot:
 
         # Battery drain rates (% per tick at 500ms interval)
         self.drain_rates = {
-            "Amazon": 0.8 / 120,      # 0.8% per minute / 120 ticks per minute
+            "Amazon Normal": 0.8 / 120,      # 0.8% per minute / 120 ticks per minute
             "Balyo": 0.6 / 120,
-            "Gemini": 1.2 / 120,
+            "Amazon Internal": 1.2 / 120,
         }
 
         # Charge rate (% per tick)
@@ -121,7 +121,7 @@ class RawRobot:
 
         activity_data = [dict(a) for a in list(self.activity)[:10]]
 
-        if self.vendor == "Amazon":
+        if self.vendor == "Amazon Normal":
             status_code = {
                 RobotStatus.IDLE: 0,
                 RobotStatus.ACTIVE: 1,
@@ -175,7 +175,7 @@ class RawRobot:
                 "activity": activity_data,
             }
 
-        else:  # Gemini
+        else:  # Amazon Internal
             status_de = {
                 RobotStatus.IDLE: "Bereit",
                 RobotStatus.ACTIVE: "Aktiv",
@@ -213,8 +213,8 @@ class FleetSimulator:
         self._initialize_fleet()
 
     def _initialize_fleet(self):
-        """Create 24 robots: 8 Amazon, 12 Balyo, 4 Gemini."""
-        # Amazon: 8 robots
+        """Create 24 robots: 8 Amazon Normal, 12 Balyo, 4 Amazon Internal."""
+        # Amazon Normal: 8 robots
         ar_positions = [
             (5, 5), (12, 5), (5, 10), (12, 10),
             (18, 5), (25, 5), (18, 10), (25, 10),
@@ -222,7 +222,7 @@ class FleetSimulator:
         for i, (x, y) in enumerate(ar_positions, 1):
             rid = f"AR-{i:03d}"
             self.robots[rid] = RawRobot(
-                rid, "Amazon", x, y,
+                rid, "Amazon Normal", x, y,
                 battery=random.uniform(40, 100),
             )
 
@@ -239,12 +239,12 @@ class FleetSimulator:
                 battery=random.uniform(40, 100),
             )
 
-        # Gemini: 4 robots
+        # Amazon Internal: 4 robots
         amzn_positions = [(8, 7), (20, 15), (32, 7), (20, 22)]
         for i, (x, y) in enumerate(amzn_positions, 1):
             rid = f"AMZN-{i:03d}"
             self.robots[rid] = RawRobot(
-                rid, "Gemini", x, y,
+                rid, "Amazon Internal", x, y,
                 battery=random.uniform(30, 90),
             )
 
@@ -401,16 +401,16 @@ class FleetSimulator:
 
         # Error probability: ~1 error per 5 minutes per robot on average
         # 5 min = 600 ticks => prob = 1/600 ≈ 0.0017
-        # Gemini units have higher error rate
+        # Amazon Internal units have higher error rate
         error_prob = 0.0017
-        if robot.vendor == "Gemini":
+        if robot.vendor == "Amazon Internal":
             error_prob = 0.005  # ~3x higher
 
         if random.random() > error_prob:
             return
 
         # Pick a random error for this vendor
-        if robot.vendor == "Amazon":
+        if robot.vendor == "Amazon Normal":
             error_pool = [e for e in AR_ERRORS if e.severity.value != "info"]
         elif robot.vendor == "Balyo":
             error_pool = [e for e in BALYO_ERRORS if e.severity.value != "info"]
@@ -642,8 +642,8 @@ class FleetSimulator:
             "charging": charging,
             "offline": offline,
             "vendors": {
-                "Amazon": sum(1 for r in robots if r.vendor == "Amazon"),
+                "Amazon Normal": sum(1 for r in robots if r.vendor == "Amazon Normal"),
                 "Balyo": sum(1 for r in robots if r.vendor == "Balyo"),
-                "Gemini": sum(1 for r in robots if r.vendor == "Gemini"),
+                "Amazon Internal": sum(1 for r in robots if r.vendor == "Amazon Internal"),
             },
         }

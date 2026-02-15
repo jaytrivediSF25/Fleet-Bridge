@@ -75,15 +75,15 @@ export const SEVERITY_LABELS: Record<AlertSeverity, string> = {
 };
 
 export const VENDOR_COLORS: Record<string, string> = {
-  'Amazon':  '#00d4ff',
+  'Amazon Normal':    '#00d4ff',
   'Balyo':            '#00ff88',
-  'Gemini':  '#ffb800',
+  'Amazon Internal':  '#ffb800',
 };
 
 export const VENDOR_INFO: Record<string, { label: string; short: string; color: string; desc: string }> = {
-  'Amazon': { label: 'Amazon', short: 'AR', color: '#00d4ff', desc: 'Cyan — Proteus AMR' },
+  'Amazon Normal':   { label: 'Amazon Normal',   short: 'AR',   color: '#00d4ff', desc: 'Cyan — Proteus AMR' },
   'Balyo':           { label: 'Balyo',           short: 'BALYO', color: '#00ff88', desc: 'Green — B-Matic AMR' },
-  'Gemini': { label: 'Gemini', short: 'GMN', color: '#ffb800', desc: 'Amber — Gemini AGV' },
+  'Amazon Internal': { label: 'Amazon Internal', short: 'AMZN', color: '#ffb800', desc: 'Amber — Custom AGV-X' },
 };
 
 /* Zone colours — semi-transparent with colour hints */

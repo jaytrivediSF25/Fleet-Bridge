@@ -317,9 +317,9 @@ class ConflictEngine:
         """Detect robots that may not complete their task + reach a charger."""
         alerts = []
         drain_rates = {
-            "Amazon": 0.8,     # % per minute
+            "Amazon Normal": 0.8,     # % per minute
             "Balyo": 0.6,
-            "Gemini": 1.2,
+            "Amazon Internal": 1.2,
         }
 
         for robot in robots:

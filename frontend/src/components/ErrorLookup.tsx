@@ -11,9 +11,9 @@ const SEVERITY_STYLE: Record<string, { color: string; bg: string; glow: string }
 
 const VENDORS = [
   { key: 'all', label: 'All' },
-  { key: 'Amazon', label: 'Amazon' },
+  { key: 'Amazon Normal', label: 'Amazon Normal' },
   { key: 'Balyo', label: 'Balyo' },
-  { key: 'Gemini', label: 'Gemini' },
+  { key: 'Amazon Internal', label: 'Amazon Internal' },
 ];
 
 const SEVERITIES = [

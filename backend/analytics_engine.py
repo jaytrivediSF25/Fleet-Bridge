@@ -87,9 +87,9 @@ class AnalyticsEngine:
     def get_vendor_comparison(self) -> list[VendorMetrics]:
         """Compare performance metrics across vendors."""
         vendor_groups: dict[str, list] = {
-            "Amazon": [],
+            "Amazon Normal": [],
             "Balyo": [],
-            "Gemini": [],
+            "Amazon Internal": [],
         }
 
         for r in self.simulator.robots.values():

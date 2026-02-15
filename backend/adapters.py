@@ -34,7 +34,7 @@ class BaseAdapter:
 
 class AmazonRoboticsAdapter(BaseAdapter):
     """
-    Amazon adapter.
+    Amazon Normal adapter.
     Raw format:
       position: {"x": 12.5, "y": 8.3}
       status: int (0=idle, 1=active, 2=error, 3=charging, 4=offline)
@@ -43,7 +43,7 @@ class AmazonRoboticsAdapter(BaseAdapter):
       speed: float m/s
     """
 
-    vendor_name = "Amazon"
+    vendor_name = "Amazon Normal"
     model_name = "Proteus AMR"
 
     STATUS_MAP = {
@@ -203,7 +203,7 @@ class BalyoAdapter(BaseAdapter):
 
 class AmazonInternalAdapter(BaseAdapter):
     """
-    Gemini adapter.
+    Amazon Internal adapter.
     Raw format:
       position: [row, col] array
       status: German string ("Bereit"=idle, "Aktiv"=active, "Fehler"=error,
@@ -213,7 +213,7 @@ class AmazonInternalAdapter(BaseAdapter):
       geschwindigkeit: float (speed in m/s)
     """
 
-    vendor_name = "Gemini"
+    vendor_name = "Amazon Internal"
     model_name = "Custom AGV-X"
 
     STATUS_MAP = {
@@ -285,9 +285,9 @@ class AmazonInternalAdapter(BaseAdapter):
 
 # Adapter registry
 ADAPTERS: dict[str, BaseAdapter] = {
-    "Amazon": AmazonRoboticsAdapter(),
+    "Amazon Normal": AmazonRoboticsAdapter(),
     "Balyo": BalyoAdapter(),
-    "Gemini": AmazonInternalAdapter(),
+    "Amazon Internal": AmazonInternalAdapter(),
 }
 
 

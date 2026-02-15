@@ -31,7 +31,7 @@ export default function TopBar() {
   const suggestions = [
     { text: 'What\'s the fleet status?', icon: '🤖' },
     { text: 'Which robots have errors?', icon: '🔴' },
-    { text: 'Compare Amazon vs Balyo performance', icon: '📊' },
+    { text: 'Compare Amazon Normal vs Balyo performance', icon: '📊' },
     { text: 'Which robots are below 30% battery?', icon: '🔋' },
     { text: 'Are there any active alerts?', icon: '🚨' },
     { text: 'Show me top performing robots', icon: '🏆' },

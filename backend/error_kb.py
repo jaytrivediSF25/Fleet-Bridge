@@ -7,12 +7,12 @@ from __future__ import annotations
 
 from models import ErrorCodeEntry, ErrorSeverity
 
-# --- Amazon Error Codes ---
+# --- Amazon Normal Error Codes ---
 AR_ERRORS: list[ErrorCodeEntry] = [
     ErrorCodeEntry(
         code="E-1001",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Emergency Stop Activated",
         description="The robot's emergency stop button has been pressed, or an external e-stop signal was received. The robot has immediately halted all motion and is waiting for manual reset.",
         common_causes=[
@@ -33,8 +33,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-1005",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Battery Critical",
         description="The robot's battery has dropped below the critical threshold (5%). The robot has stopped to prevent complete battery depletion which could damage the battery cells.",
         common_causes=[
@@ -56,8 +56,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-2001",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Obstacle Detected",
         description="The robot's LiDAR or proximity sensors detected an obstacle in its path. The robot has paused and is waiting for the obstacle to clear. It will automatically resume if the path clears within the timeout period.",
         common_causes=[
@@ -79,8 +79,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-2002",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Obstacle Timeout",
         description="The robot detected an obstacle and waited for it to clear, but the obstacle remained for longer than the timeout period (60 seconds). The robot needs manual intervention.",
         common_causes=[
@@ -102,8 +102,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-3001",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Localization Lost",
         description="The robot cannot determine its position on the facility map. It has lost its reference to known landmarks or map features. The robot has stopped and cannot navigate until localization is restored.",
         common_causes=[
@@ -125,8 +125,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-3002",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Map Mismatch",
         description="The robot's sensors are detecting features that don't match the stored facility map. Navigation may be unreliable. The robot is proceeding with caution at reduced speed.",
         common_causes=[
@@ -147,8 +147,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-4010",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Path Computation Timeout",
         description="The robot's path planner took too long to compute a route and timed out. This usually happens when the destination is hard to reach due to complex obstacle layouts.",
         common_causes=[
@@ -170,8 +170,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-4012",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Path Planning Failure",
         description="The robot tried to calculate a route to its destination but couldn't find a valid path. It has stopped and is waiting for the obstruction to clear or for manual help.",
         common_causes=[
@@ -193,8 +193,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-4015",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Destination Unreachable",
         description="The specified destination cannot be reached from the robot's current position. No valid path exists on the current map.",
         common_causes=[
@@ -216,8 +216,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-5001",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Motor Fault",
         description="One or more drive motors have reported a fault. The robot cannot move safely and has engaged its brakes. This requires physical inspection.",
         common_causes=[
@@ -239,8 +239,8 @@ AR_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="E-5002",
-        vendor="Amazon",
-        models="All Amazon AMRs",
+        vendor="Amazon Normal",
+        models="All Amazon Normal AMRs",
         name="Wheel Slip Detected",
         description="The robot's wheel encoders detected that the wheels are spinning but the robot isn't moving as expected. This usually indicates a slippery floor surface.",
         common_causes=[
@@ -488,12 +488,12 @@ BALYO_ERRORS: list[ErrorCodeEntry] = [
     ),
 ]
 
-# --- Gemini Error Codes ---
+# --- Amazon Internal Error Codes ---
 AMZN_ERRORS: list[ErrorCodeEntry] = [
     ErrorCodeEntry(
         code="0x0001",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="System Boot",
         description="The AGV has completed its boot sequence and is initializing systems. This is informational — the AGV will be ready for tasks in approximately 30 seconds.",
         common_causes=[
@@ -512,8 +512,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x8001",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="E-Stop Pressed",
         description="The emergency stop button has been physically pressed on the AGV. All motors are locked. Manual reset required.",
         common_causes=[
@@ -534,8 +534,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x8004",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Battery Low",
         description="AGV battery level is below 20%. The AGV should be directed to a charging station soon. It can continue operating but with reduced performance.",
         common_causes=[
@@ -555,8 +555,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x8008",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Path Error",
         description="The AGV's guidance system cannot follow the designated path. This typically means the guide wire or magnetic tape has been damaged or obscured.",
         common_causes=[
@@ -578,8 +578,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x800C",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Motor Stall",
         description="One or more drive motors have stalled — the motor is receiving power but the wheels are not turning. The AGV has shut down motors to prevent damage.",
         common_causes=[
@@ -602,8 +602,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x8010",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Sensor Fault",
         description="One or more sensors are reporting invalid data. The AGV may continue operating with reduced safety margins, or may stop depending on which sensor is affected.",
         common_causes=[
@@ -625,8 +625,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x8014",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Communication Lost",
         description="The AGV has lost communication with the central control system. It will continue executing its current task but cannot receive new commands.",
         common_causes=[
@@ -648,8 +648,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="0x8018",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Guidance Lost",
         description="The AGV has completely lost its guidance reference (wire or tape). It has stopped and cannot navigate until guidance is restored.",
         common_causes=[
@@ -671,8 +671,8 @@ AMZN_ERRORS: list[ErrorCodeEntry] = [
     ),
     ErrorCodeEntry(
         code="ERR_47",
-        vendor="Gemini",
-        models="All Gemini units",
+        vendor="Amazon Internal",
+        models="All Amazon Internal units",
         name="Undefined Error",
         description="An unspecified error has occurred in the AGV's control system. This is a catch-all error code that may require deeper investigation.",
         common_causes=[

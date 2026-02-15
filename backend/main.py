@@ -13,9 +13,13 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from typing import Optional
 
+from pathlib import Path
+
 from dotenv import load_dotenv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 
 load_dotenv()
 
@@ -503,3 +507,21 @@ async def health_check():
         "ws_connections": len(ws_connections),
         "gemini_configured": bool(os.getenv("GEMINI_API_KEY")),
     }
+
+
+# --- Serve Frontend Static Files (production) ---
+# Built React app lives at ../frontend/dist after `npm run build`
+FRONTEND_DIR = Path(__file__).resolve().parent.parent / "frontend" / "dist"
+
+if FRONTEND_DIR.is_dir():
+    # Serve static assets (JS, CSS, images)
+    app.mount("/assets", StaticFiles(directory=FRONTEND_DIR / "assets"), name="static-assets")
+
+    # Catch-all: serve index.html for any non-API, non-WS route (SPA routing)
+    @app.get("/{full_path:path}")
+    async def serve_spa(full_path: str):
+        # Try to serve an exact file first (favicon.ico, etc.)
+        file_path = FRONTEND_DIR / full_path
+        if full_path and file_path.is_file():
+            return FileResponse(file_path)
+        return FileResponse(FRONTEND_DIR / "index.html")

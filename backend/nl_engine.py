@@ -35,9 +35,9 @@ def _get_fleet_context(simulator: FleetSimulator) -> str:
         f"  Active: {summary['active']}, Idle: {summary['idle']}, "
         f"Error: {summary['error']}, Charging: {summary['charging']}, "
         f"Offline: {summary['offline']}",
-        f"Vendors: Amazon ({summary['vendors']['Amazon']}), "
+        f"Vendors: Amazon Normal ({summary['vendors']['Amazon Normal']}), "
         f"Balyo ({summary['vendors']['Balyo']}), "
-        f"Gemini ({summary['vendors']['Gemini']})",
+        f"Amazon Internal ({summary['vendors']['Amazon Internal']})",
         "",
     ]
 
@@ -57,7 +57,7 @@ def _get_fleet_context(simulator: FleetSimulator) -> str:
 
     # ── Per-vendor summary ──
     lines.append("═══ VENDOR BREAKDOWN ═══")
-    vendor_groups: dict[str, list] = {"Amazon": [], "Balyo": [], "Gemini": []}
+    vendor_groups: dict[str, list] = {"Amazon Normal": [], "Balyo": [], "Amazon Internal": []}
     for r in simulator.robots.values():
         vendor_groups[r.vendor].append(r)
 
@@ -209,9 +209,9 @@ def _get_analytics_context(simulator: FleetSimulator) -> str:
 
 
 SYSTEM_PROMPT = """You are FleetBridge AI — an elite intelligent assistant for a robot fleet management system at a warehouse. You help operators monitor, analyze, and command robots from 3 vendors:
-- **Amazon** (8 Proteus AMR robots, IDs: AR-001 to AR-008) — cyan color
+- **Amazon Normal** (8 Proteus AMR robots, IDs: AR-001 to AR-008) — cyan color
 - **Balyo** (8 B-Matic AMR robots, IDs: BALYO-001 to BALYO-008) — green color
-- **Gemini** (8 Custom AGV-X robots, IDs: AMZN-001 to AMZN-008) — amber color
+- **Amazon Internal** (8 Custom AGV-X robots, IDs: AMZN-001 to AMZN-008) — amber color
 
 ## YOUR CAPABILITIES
 1. **Fleet Status** — Report on individual robots or the whole fleet
@@ -230,7 +230,7 @@ SYSTEM_PROMPT = """You are FleetBridge AI — an elite intelligent assistant for
 - Include **specific numbers** — battery %, positions, speeds, task counts — when relevant.
 - **Proactively flag issues** you notice even if not asked (e.g., "I also notice AR-005 is at 12% battery").
 - For errors, reference **specific error codes** and explain in plain English.
-- When comparing vendors, use **comparative language** ("Amazon outperforms Balyo by 23% in tasks/robot").
+- When comparing vendors, use **comparative language** ("Amazon Normal outperforms Balyo by 23% in tasks/robot").
 - Suggest **actionable next steps** — not just information.
 - Always end with 2-3 natural **follow-up questions** the operator might want to ask.
 
@@ -578,13 +578,13 @@ def _generate_fallback_response(query: str, simulator: FleetSimulator) -> dict:
     # ── Comparison / Analysis queries ──
     if any(kw in query_lower for kw in ["compare", "vs", "versus", "comparison", "better", "which vendor"]):
         raw_robots = list(simulator.robots.values())
-        vendor_groups: dict[str, list] = {"Amazon": [], "Balyo": [], "Gemini": []}
+        vendor_groups: dict[str, list] = {"Amazon Normal": [], "Balyo": [], "Amazon Internal": []}
         for r in raw_robots:
             vendor_groups[r.vendor].append(r)
 
         lines = ["## 📊 Vendor Performance Comparison\n"]
-        lines.append("| Metric | Amazon | Balyo | Gemini |")
-        lines.append("|--------|--------|-------|--------|")
+        lines.append("| Metric | Amazon Normal | Balyo | Amazon Internal |")
+        lines.append("|--------|--------------|-------|-----------------|")
 
         data: dict[str, dict] = {}
         for vendor, group in vendor_groups.items():
@@ -613,9 +613,9 @@ def _generate_fallback_response(query: str, simulator: FleetSimulator) -> dict:
                 "distance_km": round(total_dist, 1),
             }
 
-        an = data.get("Amazon", {})
+        an = data.get("Amazon Normal", {})
         ba = data.get("Balyo", {})
-        ai = data.get("Gemini", {})
+        ai = data.get("Amazon Internal", {})
 
         lines.append(f"| Robots | {an.get('count', 0)} | {ba.get('count', 0)} | {ai.get('count', 0)} |")
         lines.append(f"| Tasks Completed | {an.get('tasks', 0)} | {ba.get('tasks', 0)} | {ai.get('tasks', 0)} |")
@@ -1068,7 +1068,7 @@ def _generate_fallback_response(query: str, simulator: FleetSimulator) -> dict:
         "suggested_followups": [
             "What's the fleet status?",
             "Which robots have errors?",
-            "Compare Amazon vs Balyo performance",
+            "Compare Amazon Normal vs Balyo performance",
         ],
         "response_type": "status",
     }

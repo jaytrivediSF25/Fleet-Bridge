@@ -74,7 +74,7 @@ export default function RobotDetail() {
   const glowClass = STATUS_GLOW_CSS[robot.status];
   const textGlowClass = STATUS_TEXT_GLOW[robot.status];
   const batteryHours = (robot.battery / 100 * 5.8).toFixed(1);
-  const vendorInfo = VENDOR_INFO[robot.vendor] || VENDOR_INFO['Gemini'];
+  const vendorInfo = VENDOR_INFO[robot.vendor] || VENDOR_INFO['Amazon Internal'];
   const isCharging = robot.status === 'charging';
   const batColor = isCharging ? '#3b82f6' : robot.battery > 50 ? '#00ff88' : robot.battery > 20 ? '#ffb800' : '#ff3b3b';
   const batGlow = isCharging ? 'glow-blue-sm charge-pulse' : robot.battery > 50 ? 'glow-green-sm' : robot.battery > 20 ? 'glow-amber-sm' : 'glow-red-sm';
