@@ -81,7 +81,7 @@ export default function VendorComparison() {
               <tr key={row.label} className="border-b border-white/[0.03] hover:bg-white/[0.01] transition-colors">
                 <td className="px-5 py-3 text-[#606070] text-xs">{row.label}</td>
                 {data.map(v => {
-                  const val = (v as Record<string, unknown>)[row.key] as number;
+                  const val = (v as unknown as Record<string, unknown>)[row.key] as number;
                   let textColor = '#a0a0b0';
                   if (row.warnFn && row.warnFn(val)) textColor = '#ff3b3b';
                   if (row.goodFn && row.goodFn(val)) textColor = '#00ff88';

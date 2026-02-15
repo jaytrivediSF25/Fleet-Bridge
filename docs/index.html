@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FleetBridge — Unified Robot Fleet Dashboard</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0f;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .bg-glow {
+    position: fixed;
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    filter: blur(150px);
+    opacity: 0.15;
+    pointer-events: none;
+  }
+  .glow-1 { top: -200px; left: -100px; background: #00d4ff; }
+  .glow-2 { bottom: -200px; right: -100px; background: #00ff88; }
+  .container { position: relative; z-index: 1; text-align: center; padding: 2rem; max-width: 700px; }
+  .diamond {
+    width: 50px; height: 50px;
+    background: linear-gradient(135deg, #00d4ff, #00ff88);
+    transform: rotate(45deg);
+    border-radius: 6px;
+    margin: 0 auto 2rem;
+    box-shadow: 0 0 40px rgba(0,212,255,0.4);
+  }
+  h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    margin-bottom: 0.5rem;
+  }
+  .tagline {
+    color: #a0a0b0;
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+  }
+  .accent-line {
+    width: 80px; height: 2px;
+    background: #00d4ff;
+    margin: 1.5rem auto;
+  }
+  .badge {
+    display: inline-block;
+    color: #606070;
+    font-size: 0.85rem;
+    margin-bottom: 2.5rem;
+  }
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .stat {
+    text-align: center;
+  }
+  .stat-val {
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: #606070;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .cyan { color: #00d4ff; }
+  .green { color: #00ff88; }
+  .amber { color: #ffb800; }
+  .purple { color: #8b5cf6; }
+  .btn-group {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 2rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.85rem 2rem;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #00d4ff, #00ff88);
+    color: #0a0a0f;
+    box-shadow: 0 0 30px rgba(0,212,255,0.3);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 40px rgba(0,212,255,0.5);
+  }
+  .btn-secondary {
+    background: rgba(255,255,255,0.05);
+    color: #a0a0b0;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .btn-secondary:hover {
+    background: rgba(255,255,255,0.08);
+    color: #fff;
+    border-color: rgba(255,255,255,0.2);
+  }
+  .features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2rem;
+    text-align: left;
+  }
+  .feature {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 10px;
+    padding: 1rem 1.2rem;
+  }
+  .feature-title {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+  }
+  .feature-desc {
+    font-size: 0.7rem;
+    color: #606070;
+  }
+  .footer {
+    color: #606070;
+    font-size: 0.75rem;
+  }
+  .footer a { color: #a0a0b0; text-decoration: none; }
+  .footer a:hover { color: #00d4ff; }
+  @media (max-width: 600px) {
+    h1 { font-size: 2.2rem; }
+    .features { grid-template-columns: 1fr; }
+    .stats { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="bg-glow glow-1"></div>
+  <div class="bg-glow glow-2"></div>
+  <div class="container">
+    <div class="diamond"></div>
+    <h1>FLEETBRIDGE</h1>
+    <p class="tagline">One Dashboard. Every Robot. Zero Blind Spots.</p>
+    <div class="accent-line"></div>
+    <p class="badge">AI Meets Robotics Hackathon 2025</p>
+
+    <div class="stats">
+      <div class="stat"><div class="stat-val cyan">24</div><div class="stat-label">Robots</div></div>
+      <div class="stat"><div class="stat-val green">3</div><div class="stat-label">Vendors</div></div>
+      <div class="stat"><div class="stat-val amber">6</div><div class="stat-label">Zones</div></div>
+      <div class="stat"><div class="stat-val purple">500ms</div><div class="stat-label">Updates</div></div>
+    </div>
+
+    <div class="btn-group">
+      <a href="https://fleetbridge.onrender.com" class="btn btn-primary">Launch Live Demo</a>
+      <a href="https://github.com/jaytrivediSF25/Fleet-Bridge" class="btn btn-secondary">View Source</a>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feature-title cyan">Real-Time Map</div>
+        <div class="feature-desc">HTML5 Canvas with smooth interpolation, vendor color coding, and status glow effects</div>
+      </div>
+      <div class="feature">
+        <div class="feature-title green">NL Queries</div>
+        <div class="feature-desc">Ask questions in plain English — powered by Google Gemini 2.5 Flash</div>
+      </div>
+      <div class="feature">
+        <div class="feature-title amber">Conflict Detection</div>
+        <div class="feature-desc">Collisions, deadlocks, congestion, path blocks, and battery critical alerts</div>
+      </div>
+      <div class="feature">
+        <div class="feature-title purple">Error Translation</div>
+        <div class="feature-desc">Unified error codes across all vendors with step-by-step remediation</div>
+      </div>
+    </div>
+
+    <p class="footer">Built by Jay Trivedi & Nicholas Lin &nbsp;·&nbsp; <a href="https://github.com/jaytrivediSF25/Fleet-Bridge">GitHub</a></p>
+  </div>
+</body>
+</html>

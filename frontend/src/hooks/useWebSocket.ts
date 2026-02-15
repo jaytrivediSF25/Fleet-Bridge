@@ -5,7 +5,7 @@ import type { FleetUpdate } from '../types/robot';
 export function useWebSocket() {
   const { dispatch } = useFleet();
   const wsRef = useRef<WebSocket | null>(null);
-  const reconnectTimer = useRef<ReturnType<typeof setTimeout>>();
+  const reconnectTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
   const connect = useCallback(() => {
     const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
