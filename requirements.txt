@@ -1,0 +1,6 @@
+# Root requirements file for Render deployment
+# Actual dependencies are in backend/requirements.txt
+# This file ensures Render's Python runtime detection works correctly
+
+# Install from backend directory
+-r backend/requirements.txt
